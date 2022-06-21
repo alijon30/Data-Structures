@@ -93,3 +93,70 @@ class Stack:
           
           
           
+    class Solution:
+    def calPoints(self, ops: List[str]) -> int:
+        stack = Stack()
+        
+        for i in ops:
+            if i.isnumeric():
+                stack.push(int(i))
+            elif i == "D":
+                stack.push(2*stack.peek())
+            elif i == "C":
+                stack.pop()
+            elif i[0] == "-":
+                stack.push(int(i))
+            elif i == "+":
+                a1 = stack.pop()
+                a2 = stack.pop()
+                stack.push(a2)
+                stack.push(a1)
+                stack.push(a1 + a2)
+        return stack.Sum()
+        
+        
+        
+class Node:
+    def __init__(self, value):
+        self.value = value
+        self.next = None
+        
+class Linked:
+    def __init__(self):
+        self.head = None
+class Stack:
+    def __init__(self):
+        self.linked = Linked()
+    
+    def Sum(self):
+        node = self.linked.head
+        target = 0
+        while node:
+            target += node.value
+            node = node.next
+        return target
+    
+    def push(self, value):
+        newNode = Node(value)
+        newNode.next = self.linked.head
+        self.linked.head = newNode
+    
+    def isEmpty(self):
+        if self.linked.head == None:
+            return True
+        else:
+            return False
+    
+    def pop(self):
+        if self.isEmpty():
+            return 
+        else:
+            nodeValue = self.linked.head.value
+            self.linked.head = self.linked.head.next
+            return nodeValue
+    def peek(self):
+        if self.isEmpty():
+            return
+        else:
+            return self.linked.head.value
+          
