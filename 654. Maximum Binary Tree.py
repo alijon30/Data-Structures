@@ -46,3 +46,38 @@ class Solution:
         
             return TreeNode(var, helper(l[:inde]), helper(l[inde+1:]))
         return helper(nums)
+       
+       
+ # Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def constructMaximumBinaryTree(self, nums: List[int]) -> Optional[TreeNode]:
+        
+        def helper(array):
+            
+            if array == []:
+                return
+            
+            Max = max(array)
+            ind = array.index(Max)
+            
+            if ind == 0:
+                left = []
+                right = array[ind+1:]
+            
+            elif ind == len(array) -1:
+                left = array[:ind]
+                right =[]
+            
+            else:
+                left = array[:ind]
+                right = array[ind+1:]
+            Tree = TreeNode(Max)
+            Tree.left = helper(left)
+            Tree.right = helper(right)
+            return Tree
+        return helper(nums)
