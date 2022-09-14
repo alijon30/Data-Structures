@@ -67,3 +67,79 @@ class Skiplist:
 # param_1 = obj.search(target)
 # obj.add(num)
 # param_3 = obj.erase(num)
+
+
+class Skiplist:
+
+    def __init__(self):
+        self.customList = []
+        
+    def search(self, target: int) -> bool:
+        start = 0
+        end = len(self.customList)-1
+        middle = math.floor((start + end)/2)
+        
+        while start <= end and self.customList[middle] != target:
+            
+            if target < self.customList[middle]:
+                end = middle - 1
+            else:
+                start = middle + 1
+                
+            middle = math.floor((start + end)/2)
+            
+        if target == self.customList[middle]:
+            return True
+        else:
+            return False
+        
+
+    def add(self, num: int) -> None:
+        
+        if len(self.customList) == 0:
+            self.customList.append(num)
+        
+        elif len(self.customList) == 1:
+            if num > self.customList[0]:
+                self.customList.append(num)
+            else:
+                self.customList.insert(0, num)
+                
+        else:
+            if self.customList[0] > num:
+                    self.customList.insert(0, num)
+                    return
+            else:
+
+                for i in range(len(self.customList)-1):
+
+                    if self.customList[i] <= num <= self.customList[i+1]:
+                        self.customList.insert(i+1, num)
+                        break
+                else:
+                    self.customList.append(num)
+
+    def erase(self, num: int) -> bool:
+        start = 0
+        end = len(self.customList) -1
+        middle = math.floor((start +end)/2)
+        
+        while start <= end and self.customList[middle] != num:
+            if num < self.customList[middle]:
+                end = middle - 1
+            else:
+                start = middle + 1
+            middle = math.floor((start + end)/2)
+            
+        if num == self.customList[middle]:
+            self.customList.remove(num)
+            return True
+        else:
+            return False
+
+
+# Your Skiplist object will be instantiated and called as such:
+# obj = Skiplist()
+# param_1 = obj.search(target)
+# obj.add(num)
+# param_3 = obj.erase(num)
